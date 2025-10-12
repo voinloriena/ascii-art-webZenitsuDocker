@@ -14,18 +14,6 @@ ASCII Art Web is a web application that allows users to convert text into ASCII 
 - Input validation for ASCII characters
 - Error handling for various scenarios
 
-## Authors
-
-- Aiman Zhumabayeva
-- Bek Zhaksybay
-- Dinmukhamed Jilkaidarov
-
-## Usage
-
-### Prerequisites
-
-- Go (version 1.20 or higher)
-- Web browser
 
 ### Running the Application
 
@@ -87,16 +75,3 @@ The application handles various error scenarios with appropriate HTTP status cod
 - 400 Bad Request: Invalid input
 - 404 Not Found: Missing resources
 - 500 Internal Server Error: Server-side issues
-
-## Technologies Used
-
-- Go (Golang)
-- HTML
-- CSS
-- net/http package
-- html/template package
-
-## Limitations
-
-- Supports only ASCII characters (32-126)
-
