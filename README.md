@@ -19,7 +19,7 @@ ASCII Art Web is a web application that allows users to convert text into ASCII 
 
 1. Clone the repository:
    ```bash
-   git clone https://01.tomorrow-school.ai/git/azhumaba/ascii-art-web
+   git clone https://01.tomorrow-school.ai/git/ynurmakh/ascii-art-web
    cd ascii-art-web
    ```
 
