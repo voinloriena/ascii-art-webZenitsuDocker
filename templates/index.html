@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , initial-scale=1.0">
+    <title>ASCII ART WEB</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>ASCII ART WEB</h1>
+    <form action="/ascii-art" method="POST">
+
+        <label for="inpt_text">Input Text</label>
+        <textarea name="inpt" id="inpt_text" placeholder="Enter the text" rows="4" cols="50"></textarea>
+
+        <label for="bnr">Banner</label>
+    <select name="bnr" id="title">
+        <option value="standard">standard</option>
+        <option value="shadow">shadow</option>
+        <option value="thinkertoy">thinkertoy</option>
+    </select>
+        <div class ="button-cnt">
+            <input type="submit">
+            <input type="reset">
+        </div>
+    </form>
+
+</body>
+</html>
+
