@@ -3,15 +3,10 @@ package main
 import (
 	"ascii-art-web/asciigo"
 	"html/template"
-	"io"
 	"net/http"
 	"os"
 	"strings"
 )
-
-func getHello(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Hello, HTTP!\n")
-}
 
 var tpl *template.Template
 
@@ -22,21 +17,12 @@ func init() {
 func main() {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
-		filePath := "static" + strings.TrimPrefix(r.URL.Path, "/static/")
+	// Обработка статики
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	mux.Handle("/back/", http.StripPrefix("/back/", http.FileServer(http.Dir("back"))))
 
-		// Check if the requested path is a directory
-		if isDirectory(filePath) {
-			http.Error(w, "Error:404 \nPage not found", http.StatusForbidden)
-			return
-		}
-
-		// Serve the static file
-		http.StripPrefix("/static/", http.FileServer(http.Dir("static"))).ServeHTTP(w, r)
-	})
-
+	// Основные маршруты
 	mux.HandleFunc("/", indexHandler)
-	mux.HandleFunc("/hello", getHello)
 	mux.HandleFunc("/ascii-art", asciil)
 
 	err := http.ListenAndServe(":8080", mux)
@@ -45,37 +31,31 @@ func main() {
 	}
 }
 
-func isDirectory(path string) bool {
-	info, err := os.Stat(path)
-	return err == nil && info.IsDir()
-}
-
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.Error(w, "Error:404 \nPage not Found", http.StatusNotFound)
+		renderError(w, http.StatusNotFound, "Page not found")
 		return
 	}
 	if r.Method != http.MethodGet {
-		http.Error(w, "Error:405 \nMethod not allowed", http.StatusMethodNotAllowed)
+		renderError(w, http.StatusMethodNotAllowed, "Method not allowed")
 		return
 	}
 
 	err := tpl.ExecuteTemplate(w, "index.html", nil)
 	if err != nil {
-		http.Error(w, "Error:500 \nInternal server error", http.StatusInternalServerError)
-		return
+		renderError(w, http.StatusInternalServerError, "Internal server error")
 	}
 }
 
 func asciil(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Redirect(w, r, "/", http.StatusSeeOther) // 303
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
 
 	err := r.ParseForm()
 	if err != nil {
-		http.Error(w, "Error:400 \nBad request: Unable to parse form", http.StatusBadRequest)
+		renderError(w, http.StatusBadRequest, "Bad request: Unable to parse form")
 		return
 	}
 
@@ -83,7 +63,7 @@ func asciil(w http.ResponseWriter, r *http.Request) {
 	banner := r.FormValue("bnr")
 
 	if input == "" || banner == "" {
-		http.Error(w, "Error:400 \nInput and banner are required", http.StatusBadRequest)
+		renderError(w, http.StatusBadRequest, "Input and banner are required")
 		return
 	}
 
@@ -91,22 +71,18 @@ func asciil(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		switch {
 		case strings.Contains(err.Error(), "not found"):
-			http.Error(w, "Error:404 \nNot found: Invalid banner selected", http.StatusNotFound)
+			renderError(w, http.StatusNotFound, "Not found: Invalid banner selected")
 		case strings.Contains(err.Error(), "not supported symbols"):
-			http.Error(w, "Error:400 \nBad request: Invalid characters in input", http.StatusBadRequest)
-		case strings.Contains(err.Error(), "bad request"):
-			http.Error(w, "Error:400 \nBad request: Invalid banner selected", http.StatusBadRequest)
+			renderError(w, http.StatusBadRequest, "Bad request: Invalid characters in input")
 		case strings.Contains(err.Error(), "file is invalid"):
-			http.Error(w, "Error:500 \nInternal server error: Banner file issue", http.StatusInternalServerError)
-		case strings.Contains(err.Error(), "failed to open banner file"):
-			http.Error(w, "Error:500 \nInternal server error: Banner file not found", http.StatusInternalServerError)
+			renderError(w, http.StatusInternalServerError, "Internal server error: Banner file issue")
 		default:
-			http.Error(w, "Error:500 \nInternal server error", http.StatusInternalServerError)
+			renderError(w, http.StatusInternalServerError, "Internal server error")
 		}
 		return
 	}
 
-	asciiData := struct {
+	data := struct {
 		Input  string
 		Banner string
 		Output string
@@ -116,9 +92,23 @@ func asciil(w http.ResponseWriter, r *http.Request) {
 		Output: asciiOutput,
 	}
 
-	err = tpl.ExecuteTemplate(w, "ascii-art.html", asciiData)
+	err = tpl.ExecuteTemplate(w, "index.html", data)
 	if err != nil {
-		http.Error(w, "Error:500 \nInternal server error", http.StatusInternalServerError)
-		return
+		renderError(w, http.StatusInternalServerError, "Internal server error")
+	}
+}
+
+func renderError(w http.ResponseWriter, code int, message string) {
+	w.WriteHeader(code)
+	data := struct {
+		Code    int
+		Message string
+	}{
+		Code:    code,
+		Message: message,
+	}
+	err := tpl.ExecuteTemplate(w, "error.html", data)
+	if err != nil {
+		http.Error(w, message, code)
 	}
 }
