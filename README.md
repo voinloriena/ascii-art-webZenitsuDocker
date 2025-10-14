@@ -53,3 +53,8 @@ Bad request: Invalid characters in input
 Мягкие золотые и белые искры следуют за движением курсора
 Фон — изображение из Demon Slayer
 Плавное появление элементов и подсветка ASCII
+
+<img width="1913" height="904" alt="image" src="https://github.com/user-attachments/assets/35642d9c-c999-4ec9-b2fb-d54ecc209135" />
+
+<img width="1919" height="910" alt="image" src="https://github.com/user-attachments/assets/e55e549b-8e5b-469d-bd72-9c4de8c022d6" />
+
