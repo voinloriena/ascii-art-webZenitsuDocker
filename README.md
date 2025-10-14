@@ -20,6 +20,9 @@ ASCII ART WEB — Zenitsu Edition
 ```bash
 git clone https://github.com/yourusername/ascii-art-web.git
 cd ascii-art-web
+
+
+
 3️ Запусти сервер
 bash
 Копировать код
