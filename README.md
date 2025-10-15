@@ -32,6 +32,7 @@ docker build -t ascii-art-webzenitsu:1.0 .
 3.Запуск контейнера:
 
 docker run -d --name ascii-art-webzenitsu -p 8080:8080 ascii-art-webzenitsu:1.0
+
 4.Открыть браузер и перейти:
 
 http://localhost:8080
