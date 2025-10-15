@@ -45,11 +45,18 @@ ascii-art-webZenitsu/
 ## 🛠️ Установка и запуск через Docker
 
 1. Перейти в папку проекта:
+   
 2.Сборка Docker-образа:
+
 docker build -t ascii-art-webzenitsu:1.0 .
+
 3.Запуск контейнера:
+
 docker run -d --name ascii-art-webzenitsu -p 8080:8080 ascii-art-webzenitsu:1.0
 4.Открыть браузер и перейти:
+
 http://localhost:8080
+
 5.Проверка картинки:
+
 http://localhost:8080/back/1625588496_1040737.webp
