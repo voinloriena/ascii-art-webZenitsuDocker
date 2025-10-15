@@ -33,10 +33,6 @@ ascii-art-webZenitsu/
 ├── banners/
 ├── asciigo/
 └── README.md
-
-yaml
-Копировать код
-
 ---
 
 ## ⚙️ Требования
