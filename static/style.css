@@ -1,62 +1,40 @@
 /* ================== Общие настройки ================== */
-body {
+html, body {
     margin: 0;
-    overflow: hidden;
+    padding: 0;
+    height: 100%; /* Важно: фон растянется на весь экран */
     font-family: 'Montserrat', sans-serif;
-    height: 100vh;
     color: #fff;
+    overflow-y: auto;
+    background: url("/back/1625588496_1040737.webp") center/cover no-repeat;
+    background-size: cover;
     position: relative;
 }
 
-/* Фоновое изображение */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("/back/1625588496_1040737.webp") center/cover no-repeat;
-    z-index: -3;
-    filter: brightness(0.6); /* Сделали фон чуть темнее */
-    opacity: 0;
-    animation: bgFadeIn 1.5s ease-in-out forwards;
-}
-
-/* Анимационный canvas */
+/* Canvas для анимации */
 #anime-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -2;
+    z-index: 0; /* ниже контейнера */
     pointer-events: none;
     background: transparent;
 }
 
-/* ================== Контейнер ================== */
+/* Контейнер поверх всего */
 .container {
     position: relative;
     z-index: 1;
-    background: rgba(0, 0, 0, 0.65); /* Более тёмный фон для контраста */
+    background: rgba(0, 0, 0, 0.5); /* полупрозрачный черный фон */
     border-radius: 15px;
     padding: 40px;
     width: 80%;
     max-width: 700px;
     margin: 50px auto;
-    color: #fff;
     text-align: center;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(6px);
-    animation: fadeIn 1s ease-in-out;
-}
-
-/* Заголовок */
-h1 {
-    margin-bottom: 25px;
-    color: #ffef70;
-    text-shadow: 0 0 10px #fff94d, 0 0 20px #ffd84d;
+    color: #fff;
 }
 
 /* ================== Формы ================== */
@@ -67,9 +45,33 @@ textarea, select {
     border: none;
     font-size: 16px;
     margin-bottom: 15px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.6); /* более темный фон, читаемость текста */
     color: #fff;
     box-shadow: 0 0 8px rgba(255, 255, 100, 0.3);
+}
+
+/* ================== ASCII-арт ================== */
+pre {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 18px;
+    line-height: 1.2;
+    padding: 15px;
+    border-radius: 8px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    white-space: pre;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 70vh;
+    font-weight: 600;
+    text-shadow: 0 0 5px #000;
+}
+
+/* Заголовок */
+h1 {
+    margin-bottom: 25px;
+    color: #ffef70;
+    text-shadow: 0 0 10px #fff94d, 0 0 20px #ffd84d;
 }
 
 /* Кнопки */
@@ -92,21 +94,6 @@ button:hover {
 button.secondary {
     background: #555;
     color: white;
-}
-
-/* ================== ASCII-арт ================== */
-pre {
-    font-family: "Courier New", Courier, monospace; /* Моноширинный шрифт */
-    font-size: 18px; /* Размер для чёткого отображения */
-    line-height: 1.2;
-    background: transparent;
-    padding: 15px;
-    border-radius: 8px;
-    color: #fff;
-    white-space: pre; /* Сохраняем пробелы и переносы */
-    overflow-x: auto;
-    font-weight: 600;
-    text-shadow: 0 0 5px #000; /* Лёгкая тень для контраста */
 }
 
 /* ================== Кнопка "Назад" ================== */
