@@ -1,3 +1,4 @@
+/* ================== Общие настройки ================== */
 body {
     margin: 0;
     overflow: hidden;
@@ -7,7 +8,7 @@ body {
     position: relative;
 }
 
-
+/* Фоновое изображение */
 body::before {
     content: "";
     position: fixed;
@@ -17,12 +18,12 @@ body::before {
     height: 100%;
     background: url("/back/1625588496_1040737.webp") center/cover no-repeat;
     z-index: -3;
-    filter: brightness(0.8);
+    filter: brightness(0.6); /* Сделали фон чуть темнее */
     opacity: 0;
     animation: bgFadeIn 1.5s ease-in-out forwards;
 }
 
-
+/* Анимационный canvas */
 #anime-bg {
     position: fixed;
     top: 0;
@@ -34,11 +35,11 @@ body::before {
     background: transparent;
 }
 
-/* Контейнер */
+/* ================== Контейнер ================== */
 .container {
     position: relative;
     z-index: 1;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.65); /* Более тёмный фон для контраста */
     border-radius: 15px;
     padding: 40px;
     width: 80%;
@@ -46,17 +47,19 @@ body::before {
     margin: 50px auto;
     color: #fff;
     text-align: center;
-    box-shadow: 0 0 20px rgba(255, 255, 100, 0.4);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(6px);
     animation: fadeIn 1s ease-in-out;
 }
 
+/* Заголовок */
 h1 {
     margin-bottom: 25px;
     color: #ffef70;
     text-shadow: 0 0 10px #fff94d, 0 0 20px #ffd84d;
 }
 
+/* ================== Формы ================== */
 textarea, select {
     width: 100%;
     padding: 10px;
@@ -69,6 +72,7 @@ textarea, select {
     box-shadow: 0 0 8px rgba(255, 255, 100, 0.3);
 }
 
+/* Кнопки */
 button {
     background: linear-gradient(45deg, #ffde59, #ffb400);
     color: black;
@@ -90,18 +94,22 @@ button.secondary {
     color: white;
 }
 
+/* ================== ASCII-арт ================== */
 pre {
+    font-family: "Courier New", Courier, monospace; /* Моноширинный шрифт */
+    font-size: 18px; /* Размер для чёткого отображения */
+    line-height: 1.2;
     background: transparent;
     padding: 15px;
     border-radius: 8px;
     color: #fff;
-    white-space: pre-wrap;
+    white-space: pre; /* Сохраняем пробелы и переносы */
     overflow-x: auto;
-    text-shadow: 0 0 6px #ffffff, 0 0 12px #ffffaa;
     font-weight: 600;
+    text-shadow: 0 0 5px #000; /* Лёгкая тень для контраста */
 }
 
-/* Go Back Button */
+/* ================== Кнопка "Назад" ================== */
 .go-back-button {
     display: inline-block;
     text-decoration: none;
@@ -118,6 +126,7 @@ pre {
     box-shadow: 0 0 15px #ffde59;
 }
 
+/* ================== Анимации ================== */
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }

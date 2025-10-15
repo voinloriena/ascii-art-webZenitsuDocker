@@ -2,6 +2,7 @@ package main
 
 import (
 	"ascii-art-web/asciigo"
+	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -25,6 +26,7 @@ func main() {
 	mux.HandleFunc("/", indexHandler)
 	mux.HandleFunc("/ascii-art", asciil)
 
+	fmt.Println("✅ Server is running at: http://localhost:8080")
 	err := http.ListenAndServe(":8080", mux)
 	if err != nil {
 		os.Exit(1)

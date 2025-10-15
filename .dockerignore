@@ -1,0 +1,12 @@
+.git
+.gitignore
+.vscode
+.idea
+node_modules
+*.log
+*.exe
+bin
+.DS_Store
+*.tmp
+*.cache
+**/vendor
